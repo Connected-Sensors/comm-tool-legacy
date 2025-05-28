@@ -12,8 +12,8 @@ const firasans = Fira_Sans({
 })
 
 export const metadata = {
-  title: 'Connected Sensors | Water Monkey - Self Commissioning Tool',
-  description: 'Connected Sensors - Water Monkey Self Commissioning Tool',
+  title: 'Connected Sensors | Water Monkey | Commissioning Tool',
+  description: 'Connected Sensors | Water Monkey | Commissioning Tool',
   icons: {
     icon: '/public/cs.png',
   },

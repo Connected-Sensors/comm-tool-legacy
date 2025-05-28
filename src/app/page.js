@@ -13,8 +13,8 @@ export default function Header() {
   const router = useRouter()
   useEffect(()=>{
     setTimeout(()=>{
-    router.push("/home")
-  },100)
+      router.push("/home")
+    },100)
   }, [])
   
 const { loader } = useContext(userContext)
@@ -22,8 +22,8 @@ const { loader } = useContext(userContext)
   return (
     <>
       <Head>
-        <title>Connected Sensors | Water Monkey Self-Commissioning Tool</title>
-        <meta name="Connected Sensors | Water Monkey Self-Commissioning Tool" content="Connected Sensors | Water Monkey Self-Commissioning Tool"/>
+        <title>Connected Sensors | Water Monkey | Commissioning Tool</title>
+        <meta name="Connected Sensors | Water Monkey | Commissioning Tool" content="Connected Sensors | Water Monkey | Commissioning Tool"/>
         <link rel="icon" href="/public/favicon.ico"/>
       </Head>
       <div className="w-full h-fit">
