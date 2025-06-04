@@ -13,7 +13,7 @@ export async function POST(req){
             return new Response(JSON.stringify({"status": "error", "message": "There was an error requesting the aggregated variables: some variables were not found, only " + variables.length + " out of 9" }))
         }else{
             let count = 0
-            for(let i = 0; i < variables.length; i++){
+            for(let i = 0; i <= variables.length; i++){
                 try{
                     let response = await fetch(`https://cs.api.ubidots.com/api/v1.6/variables/${variables[i].id}/statistics/sum/${start}/${end}`, {
                         headers: {
@@ -26,7 +26,7 @@ export async function POST(req){
                     return new Response(JSON.stringify({"status": "error", "message": "There was an error requesting the aggregated variables: " + e}))
                 }finally{
                     count = count + 1
-                    if(count === variables.length-1){
+                    if(count === variables.length){
                         let count1 = 0
                         let timestamp_end = toTimestamp(new Date())
                         let timestamp_start =  Number(timestamp_end) - 2592000000

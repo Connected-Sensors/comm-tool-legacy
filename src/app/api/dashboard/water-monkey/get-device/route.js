@@ -25,6 +25,7 @@ export async function GET(req){
                 })
                 let data1 = await response1.json()
                 if(data1.results){
+                    
                     let variables = []
                     let flow_variables = []
                     let reset_variables = []
