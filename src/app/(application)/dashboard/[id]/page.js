@@ -313,7 +313,7 @@ const Dashboard = ({ params }) => {
             setMessage={setMessage}
           />
         }
-        <TimeRangeSelector />
+        <TimeRangeSelector setMessage={setMessage}/>
         {
           device && lastValues &&
           <>

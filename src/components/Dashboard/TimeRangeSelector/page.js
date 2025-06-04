@@ -1,9 +1,11 @@
+"use client"
+
 import React from 'react'
 import { useContext } from 'react'
 import { wmDashbaordContext } from '@/src/context/wmDashboardContext'
 import { toTimestamp } from '@/src/functions/toTimestamp'
 
-const TimeRangeSelector = () => {
+const TimeRangeSelector = ({ setMessage }) => {
 
     const { setTimeRangeStart, setTimeRangeEnd, runReport, setRunReport, setQuickReport, setLoader } = useContext(wmDashbaordContext)
     let now = new Date()
@@ -70,21 +72,27 @@ const TimeRangeSelector = () => {
                 <p className='mr-1 text-white text-[0.85rem] hidden font-semibold md:flex'>Start:</p>
                 <input 
                     type="datetime-local" 
-                    className='rounded cursor-pointer font-normal p-[0.2rem] text-dark-grey text-[0.75rem] md:mr-0 w-[35%] md:w-[30%]'
-                    onChange={(e)=> setTimeRangeStart(toTimestamp(e.target.value))}
+                    className='rounded cursor-pointer font-normal p-[0.2rem] text-dark-grey text-[0.75rem] md:mr-0 w-[35%] md:w-[30%] time_range_start'
                 />
                 <p className='mr-1 text-white text-[0.85rem] ml-[0.5rem] hidden font-semibold md:flex'>End:</p>
                 <input 
                     type="datetime-local" 
-                    className='rounded cursor-pointer font-normal p-[0.2rem] text-dark-grey text-[0.75rem] w-[35%] md:w-[30%]'
-                    onChange={(e)=> setTimeRangeEnd(toTimestamp(e.target.value))}
+                    className='rounded cursor-pointer font-normal p-[0.2rem] text-dark-grey text-[0.75rem] w-[35%] md:w-[30%] time_range_end'
                 />
                 <button 
                 className='wm-button-quick-report md:ml-[0.5rem] md:mr-0 md:mt-0 ml-[1rem]'
                 onClick={()=> {
-                    setLoader(true)
-                    setRunReport(!runReport)
-                    setQuickReport()
+                    let start = document.querySelector('.time_range_start').value
+                    let end = document.querySelector('.time_range_end').value
+                    if(!start || !end){
+                        setMessage('Please select a start and end date or a quick report')
+                    }else{
+                        setTimeRangeStart(toTimestamp(start))
+                        setTimeRangeEnd(toTimestamp(end))
+                        setLoader(true)
+                        setRunReport(!runReport)
+                        setQuickReport()
+                    }
                 }}
                 >
                     Run Report
