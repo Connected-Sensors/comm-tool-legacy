@@ -7,9 +7,6 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const MainChart = ({ mainChartValues, lastValues, reportStart, reportEnd, meterType, metric, cubic }) => {
 
-    console.log(mainChartValues.leak_cost_per_update)
-    console.log(typeof(mainChartValues.leak_cost_per_update))
-
 
     var donutChartConfig = {
         series: (mainChartValues.leak_cost_per_update && mainChartValues.actual_cost_per_update) ? [ (mainChartValues.leak_cost_per_update / (mainChartValues.actual_cost_per_update + mainChartValues.leak_cost_per_update))*100, 100 -((mainChartValues.leak_cost_per_update / (mainChartValues.actual_cost_per_update + mainChartValues.leak_cost_per_update))*100) ] : [ (mainChartValues.leak_volume_per_update / (mainChartValues.actual_consumption_per_update + mainChartValues.leak_volume_per_update))*100, 100 -((mainChartValues.leak_volume_per_update / (mainChartValues.actual_consumption_per_update + mainChartValues.leak_volume_per_update))*100) ],
@@ -40,8 +37,8 @@ const MainChart = ({ mainChartValues, lastValues, reportStart, reportEnd, meterT
             <div className="flex items-center justify-center">
                 <Chart type="donut" options={donutChartConfig} series={donutChartConfig.series} width={300} height={300}/>
                 <div className="absolute z-10 w-[320px] h-[320px] flex flex-col justify-center items-center">
-                    <p className="text-yellow font-bold text-[4rem] mb-[-1.5rem] font-outline">{(mainChartValues.leak_cost_per_update && mainChartValues.actual_cost_per_update ) ? ((mainChartValues.leak_cost_per_update / (mainChartValues.leak_cost_per_update + mainChartValues.actual_cost_per_update))*100).toLocaleString('en-US', {maximumFractionDigits: 0, minimumFractionDigits: 0}) + '%' : (mainChartValues.leak_volume_per_update && mainChartValues.actual_consumption_per_update ) ? ((mainChartValues.leak_volume_per_update / (mainChartValues.leak_volume_per_update + mainChartValues.actual_consumption_per_update))*100).toLocaleString('en-US', {maximumFractionDigits: 0, minimumFractionDigits: 0}) + "%" : 'No Data'}</p>
-                    <p className="text-yellow font-bold text-[1.5rem] font-outline">LEAK</p>
+                    <p className="text-yellow font-bold text-[4rem] mb-[-1.5rem] font-outline">{(mainChartValues.leak_cost_per_update && mainChartValues.actual_cost_per_update ) ? ((mainChartValues.leak_cost_per_update / (mainChartValues.leak_cost_per_update + mainChartValues.actual_cost_per_update))*100).toLocaleString('en-US', {maximumFractionDigits: 0, minimumFractionDigits: 0}) + '%' : (mainChartValues.leak_volume_per_update && mainChartValues.actual_consumption_per_update ) ? ((mainChartValues.leak_volume_per_update / (mainChartValues.leak_volume_per_update + mainChartValues.actual_consumption_per_update))*100).toLocaleString('en-US', {maximumFractionDigits: 0, minimumFractionDigits: 0}) + "%" : (!mainChartValues.leak_cost_per_update && !mainChartValues.leak_volume_per_update && mainChartValues.actual_cost_per_update && mainChartValues.actual_consumption_per_update) ? '0%' : 'No Data'}</p>
+                    <p className="text-yellow font-bold text-[1.5rem] font-outline">{(!mainChartValues.leak_cost_per_update && !mainChartValues.leak_volume_per_update && mainChartValues.actual_cost_per_update && mainChartValues.actual_consumption_per_update) ? 'LEAK' : (mainChartValues.leak_cost_per_update && mainChartValues.leak_volume_per_update && mainChartValues.actual_cost_per_update && mainChartValues.actual_consumption_per_update) ? 'LEAK' : ''}</p>
                 </div>
             </div>  
             <div className='flex flex-col w-[17rem] items-center lg:items-start justify-between ml-[1rem] mt-[1rem] md:mt-0'>
